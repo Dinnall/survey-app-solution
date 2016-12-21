@@ -56,16 +56,19 @@
 	var Results = __webpack_require__(237);
 	
 	
-	var App = React.createClass({
+	var App = (0, _reactRouter.withRouter)(React.createClass({
 	  displayName: 'App',
 	
+	  goCreate: function goCreate() {
+	    this.props.router.push("/create");
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
-	        _reactRouter.Link,
-	        { to: '/create' },
+	        'div',
+	        { onClick: this.goCreate },
 	        'Create'
 	      ),
 	      ' ',
@@ -87,7 +90,7 @@
 	      this.props.children
 	    );
 	  }
-	});
+	}));
 	
 	ReactDOM.render(React.createElement(
 	  _reactRouter.Router,
@@ -36746,7 +36749,11 @@
 	        })
 	      );
 	    } else {
-	      return React.createElement('div', null);
+	      return React.createElement(
+	        'div',
+	        null,
+	        'Loading...'
+	      );
 	    }
 	  }
 	});

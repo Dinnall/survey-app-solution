@@ -1,9 +1,6 @@
 var router = require('express').Router()
 var db = require('../models')
-
-router.get('/api/response', function(req, res) {
-  res.send('it works!')
-})
+var debug = require('debug')('HALP')
 
 router.route('/api/response')
   .get(function(req, res){
@@ -11,6 +8,7 @@ router.route('/api/response')
       include: [ db.Question ]
     })
       .then(function(responses){
+        debug("%O", responses)
         res.send(JSON.stringify(responses))
       })
       .catch(function(err){
@@ -28,9 +26,9 @@ router.route('/api/response')
 
 router.route('/api/question')
   .get(function(req, res){
-    console.log("hit it")
     db.Question.findAll()
       .then(function(questions) {
+        debug("%O", questions[0].dataValues)
         res.send(JSON.stringify(questions))
       })
       .catch(function(err) {
@@ -38,6 +36,7 @@ router.route('/api/question')
       })
   })
   .post(function(req, res) {
+    debugger
     db.Question.create({
       question: req.body.question,
       choiceOne: req.body.one,

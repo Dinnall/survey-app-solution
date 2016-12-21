@@ -4,20 +4,23 @@ var $ = require('jquery')
 var Create = require('./create.jsx')
 var Questions = require('./questions.jsx')
 var Results = require('./result.jsx')
-import {Router, Route, Link, browserHistory} from 'react-router'
+import {withRouter, Router, Route, Link, browserHistory} from 'react-router'
 
-var App = React.createClass({
+var App = withRouter(React.createClass({
+  goCreate: function() {
+    this.props.router.push("/create")
+  },
   render: function() {
     return(
       <div>
-        <Link to='/create'>Create</Link> <br/>
+        <div onClick={this.goCreate}>Create</div> <br/>
         <Link to='/questions'>Answer</Link> <br/>
         <Link to='/results'>See Results</Link> <br/>
         {this.props.children}
       </div>
     )
   }
-})
+}))
 
 ReactDOM.render(
   <Router history={browserHistory}>
